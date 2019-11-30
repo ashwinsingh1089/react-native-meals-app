@@ -76,7 +76,7 @@ const routeConfig = {
 	}
 };
 
-const BottomTabNavigator =
+const MealsFavTabNavigator =
 	Platform.OS === 'android'
 		? createMaterialBottomTabNavigator(routeConfig, {
 				shifting: true
@@ -87,12 +87,29 @@ const BottomTabNavigator =
 					activeTintColor: Colors.accentColor
 				}
 		  });
-const FilterNavigator = createStackNavigator({
-	filters: FiltersScreen
-});
-const MainNavigator = createDrawerNavigator({
-	MealsFav: BottomTabNavigator,
-	filters: FilterNavigator
-});
+const FilterNavigator = createStackNavigator(
+	{
+		filters: FiltersScreen
+	},
+	{
+		defaultNavigationOptions
+	}
+);
+const MainNavigator = createDrawerNavigator(
+	{
+		MealsFav: {
+			screen: MealsFavTabNavigator,
+			navigationOptions: {
+				headerTitle: 'Meals'
+			}
+		},
+		filters: FilterNavigator
+	},
+	{
+		contentOptions: {
+			activeTintColor: Colors.accentColor
+		}
+	}
+);
 
 export default createAppContainer(MainNavigator);

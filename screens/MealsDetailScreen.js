@@ -3,15 +3,31 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MEALS } from '../data/dummy-data';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/HeaderButton';
+import { ScrollView, FlatList } from 'react-native-gesture-handler';
+import MealItem from '../components/MealItem';
 
 const MealsDetailScreen = props => {
 	const mealId = props.navigation.getParam('mealId');
 	const meal = MEALS.find(meal => meal.id === mealId);
 
 	return (
-		<View style={styles.screen}>
-			<Text>{meal.title}</Text>
-		</View>
+		<ScrollView>
+			<View>
+				<MealItem item={meal} onMealSelected={() => {}} />
+				<Text>ingredients:</Text>
+				<FlatList
+					data={meal.ingredients}
+					keyExtractor={item => item}
+					renderItem={itemData => <Text>{itemData.item}</Text>}
+				/>
+				<Text>Steps:</Text>
+				<FlatList
+					data={meal.steps}
+					keyExtractor={item => item}
+					renderItem={itemData => <Text>{itemData.item}</Text>}
+				/>
+			</View>
+		</ScrollView>
 	);
 };
 
