@@ -1,4 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import mealsReducer from './reducers/mealsReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-export default store = createStore(combineReducers({ meals: mealsReducer }));
+const store = createStore(
+	combineReducers({ meals: mealsReducer }),
+	composeWithDevTools()
+);
+
+export default store;
